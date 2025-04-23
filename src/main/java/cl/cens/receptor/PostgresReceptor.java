@@ -1,11 +1,11 @@
-package cl.cens.mediator;
+package cl.cens.receptor;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PostgresMediator {
+public class PostgresReceptor {
 
     public static void insertarDatos(String url, String user, String password, boolean envioCorrecto, String responseResource) throws Exception {
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
@@ -25,7 +25,7 @@ public class PostgresMediator {
 
     public static void actualizarDatos(String url, String user, String password, int idTupla, boolean envioCorrecto, String responseResource) throws Exception {
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            String sql = "UPDATE ejemplo_datos SET envio_correcto = ?, response_resource = ?::jsonb WHERE id = ?";
+            String sql = "UPDATE bundle_priorizar SET envio_correcto = ?, response_resource = ?::jsonb WHERE id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setBoolean(1, envioCorrecto);
                 stmt.setString(2, responseResource);
@@ -61,6 +61,11 @@ public class PostgresMediator {
     }
 
     public static String helloWorld() {
+        System.out.println("¡Hola Mundo!");
+        return "Hola Mundo desde PostgresMQMediator";
+    }
+
+    public static String helloWorld2() {
         System.out.println("¡Hola Mundo!");
         return "Hola Mundo desde PostgresMQMediator";
     }

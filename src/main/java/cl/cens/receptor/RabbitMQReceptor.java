@@ -1,4 +1,4 @@
-package cl.cens.mediator;
+package cl.cens.receptor;
 
 import com.rabbitmq.client.*;
 
@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
-public class RabbitMQMediator {
+public class RabbitMQReceptor {
 
     public static String leerMensaje(
             String host,
