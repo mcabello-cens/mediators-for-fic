@@ -5,20 +5,22 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>cl.cens.rabbitmq</groupId>
-  <artifactId>cens-receptor</artifactId>
+  <groupId>cl.cens.receptor</groupId>
+  <artifactId>receptor</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>RabbitMQ Reader for Mirth</name>
+  <name>CENS Receptor</name>
 
   <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <hapifhir_version>7.4.0</hapifhir_version>
   </properties>
 
   <dependencies>
+    <!-- RabbitMQ -->
     <dependency>
       <groupId>com.rabbitmq</groupId>
       <artifactId>amqp-client</artifactId>
@@ -32,33 +34,73 @@
       <version>42.6.0</version>
     </dependency>
 
+    <!-- Apache HTTP -->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.13</version>
+    </dependency>
+
+    <!-- Jackson -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.15.2</version>
+    </dependency>
+
+    <!-- HAPI FHIR - Base Model R4 -->
+    <dependency>
+      <groupId>ca.uhn.hapi.fhir</groupId>
+      <artifactId>hapi-fhir-structures-r4</artifactId>
+      <version>${hapifhir_version}</version> <!-- Puedes ajustar según la versión que uses -->
+    </dependency>
+
+    <!-- HAPI FHIR - Core Runtime -->
+    <dependency>
+      <groupId>ca.uhn.hapi.fhir</groupId>
+      <artifactId>hapi-fhir-base</artifactId>
+      <version>${hapifhir_version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>
     <plugins>
-      <!-- Compila y genera el JAR -->
+      <!-- Compilador -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>11</source>
+          <target>11</target>
         </configuration>
       </plugin>
 
-      <!-- Genera el JAR sin dependencias (solo tu clase) -->
+      <!-- JAR con dependencias para Mirth -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.3.0</version>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.6.0</version>
         <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
           <archive>
             <manifest>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
             </manifest>
           </archive>
         </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class PostgresReceptor {
 
-    public static void insertarDatos(String url, String user, String password, boolean envioCorrecto, String responseResource) throws Exception {
+    public static void insertData(String url, String user, String password, boolean envioCorrecto, String responseResource) throws Exception {
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
             String sql = "INSERT INTO public.bundle_priorizar (envio_correcto, response_resource) VALUES (?, ?::jsonb)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -23,7 +23,7 @@ public class PostgresReceptor {
     }
 
 
-    public static void actualizarDatos(String url, String user, String password, int idTupla, boolean envioCorrecto, String responseResource) throws Exception {
+    public static void updateData(String url, String user, String password, int idTupla, boolean envioCorrecto, String responseResource) throws Exception {
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
             String sql = "UPDATE bundle_priorizar SET envio_correcto = ?, response_resource = ?::jsonb WHERE id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -61,11 +61,6 @@ public class PostgresReceptor {
     }
 
     public static String helloWorld() {
-        System.out.println("¡Hola Mundo!");
-        return "Hola Mundo desde PostgresMQMediator";
-    }
-
-    public static String helloWorld2() {
         System.out.println("¡Hola Mundo!");
         return "Hola Mundo desde PostgresMQMediator";
     }
