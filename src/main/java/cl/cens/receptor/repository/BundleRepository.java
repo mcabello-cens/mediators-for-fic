@@ -1,11 +1,16 @@
 package cl.cens.receptor.repository;
 
+import cl.cens.receptor.FhirReceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class BundleRepository {
+    private static final Logger logger = LoggerFactory.getLogger(BundleRepository.class);
     private final DataSource dataSource;
 
     public BundleRepository(DataSource dataSource) {
@@ -20,7 +25,8 @@ public class BundleRepository {
             stmt.setString(2, responseResource);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error al insertar en bundle_priorizar", e);
+            logger.error("Error al insertar en bundle");
+            throw new RuntimeException("Error al insertar en bundle", e);
         }
     }
 
@@ -33,7 +39,8 @@ public class BundleRepository {
             stmt.setInt(3, idTupla);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error al actualizar en bundle_priorizar", e);
+            logger.error("Error al actualizar en bundle");
+            throw new RuntimeException("Error al actualizar en bundle", e);
         }
     }
 }

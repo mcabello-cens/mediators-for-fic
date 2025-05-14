@@ -1,6 +1,8 @@
 package cl.cens.receptor;
 
 import com.rabbitmq.client.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -8,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 public class RabbitMQReceptor {
+    private static final Logger logger = LoggerFactory.getLogger(RabbitMQReceptor.class);
 
     public static String leerMensaje(
             String host,
@@ -47,7 +50,7 @@ public class RabbitMQReceptor {
     }
 
     public static String helloWorld() {
-        System.out.println("¡Hola Mundo!");
-        return "Hola Mundo desde RabbitMQMediator";
+        logger.info("Hola Mundo desde RabbitMqReceptor class");
+        return "Hola Mundo desde RabbitMqReceptor class";
     }
 }

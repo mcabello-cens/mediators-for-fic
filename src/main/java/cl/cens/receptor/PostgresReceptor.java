@@ -2,10 +2,13 @@ package cl.cens.receptor;
 
 import cl.cens.receptor.repository.BundleRepository;
 import cl.cens.receptor.util.DataSourceProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 
 public class PostgresReceptor {
+    private static final Logger logger = LoggerFactory.getLogger(PostgresReceptor.class);
 
     private static BundleRepository repository;
         public static void init(String url, String user, String password) {
@@ -22,6 +25,7 @@ public class PostgresReceptor {
     }
 
     public static String helloWorld() {
-        return "Hola Mundo desde PostgresReceptor optimizado";
+            logger.info("Hola Mundo desde PostgresReceptor class");
+            return "Hola Mundo desde PostgresReceptor class";
     }
 }

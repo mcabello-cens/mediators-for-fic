@@ -7,6 +7,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,6 +16,8 @@ import java.util.Base64;
 import java.util.Map;
 
 public class TokenMinsal {
+    private static final Logger logger = LoggerFactory.getLogger(TokenMinsal.class);
+
     public static String getToken(String url, String user, String password) {
         String authString = user + ":" + password;
         String encodedAuth = Base64.getEncoder().encodeToString(authString.getBytes(StandardCharsets.UTF_8));
@@ -33,14 +37,14 @@ public class TokenMinsal {
             HttpResponse response = client.execute(post);
             String json = EntityUtils.toString(response.getEntity());
 
-            System.out.println("Respuesta cruda del servidor (Apache): " + json);
+            logger.info("Respuesta cruda del servidor (Apache): " + json);
 
             // Parsear JSON
             ObjectMapper mapper = new ObjectMapper();
             Map<?, ?> map = mapper.readValue(json, Map.class);
             String token = (String) map.get("access_token");
 
-            System.out.println("Access token obtenido: " + token);
+            logger.info("Access token obtenido: " + token);
             return token;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -48,7 +52,7 @@ public class TokenMinsal {
     }
 
     public static String helloWorld() {
-        System.out.println("¡Hola Mundo!");
+        logger.info("Hola Mundo desde TokenMinsal class");
         return "Hola Mundo desde TokenMinsal class";
     }
 }

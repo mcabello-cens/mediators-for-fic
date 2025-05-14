@@ -67,6 +67,19 @@
       <artifactId>hapi-fhir-base</artifactId>
       <version>${hapifhir_version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId> <!-- o logback-classic si usas Logback -->
+      <version>2.0.9</version>
+    </dependency>
+
   </dependencies>
 
   <build>
